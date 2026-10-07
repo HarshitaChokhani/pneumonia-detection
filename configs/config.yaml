@@ -1,0 +1,23 @@
+# ---------- Paths ----------
+data_dir: data/chest_xray          # contains train/ val/ test/ (Kaggle layout)
+output_dir: outputs
+
+# ---------- Data ----------
+img_size: 224
+val_split: 0.15        # official val set has only 16 images, so we re-split train
+batch_size: 32
+num_workers: 2
+seed: 42
+classes: [NORMAL, PNEUMONIA]
+
+# ---------- Training ----------
+models: [baseline_cnn, resnet50]   # trained one after the other for comparison
+epochs:
+  baseline_cnn: 10
+  resnet50: 8
+lr:
+  baseline_cnn: 0.001
+  resnet50: 0.0001
+weight_decay: 0.0001
+early_stopping_patience: 3
+use_class_weights: true            # handles NORMAL/PNEUMONIA imbalance (~1:3)
